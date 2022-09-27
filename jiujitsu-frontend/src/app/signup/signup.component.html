@@ -1,0 +1,26 @@
+<mat-card>
+  <mat-card-title>
+    Sign up form
+  </mat-card-title>
+  <mat-card-subtitle>
+    Please fill out the form below to sign up
+  </mat-card-subtitle>
+  <form [formGroup]="signupForm">
+    <mat-form-field>
+      <input matInput placeholder="First Name" formControlName="name">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Last Name" formControlName="surname">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type='email' placeholder="Email" formControlName="email">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type='password' placeholder="Password" formControlName="password">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type='password' placeholder="Confirm Password" formControlName="confirmPassword">
+    </mat-form-field>
+    <button  mat-raised-button color="primary" (click)="onSignup()" [disabled]="!formValid">Sign up</button>
+  </form>
+</mat-card>

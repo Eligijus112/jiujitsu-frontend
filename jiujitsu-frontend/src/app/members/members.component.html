@@ -1,0 +1,16 @@
+<mat-card>
+  <mat-accordion multi="true" *ngIf="memberCount > 0">
+    <mat-expansion-panel *ngFor="let member of members">
+      <mat-expansion-panel-header>
+        {{member.name}} {{member.surname}}
+      </mat-expansion-panel-header>
+          <div class=member-info>
+            <p>
+              <span>Member email:</span> {{member.email}}
+            </p>
+            <p>
+              <span>Member since:</span> {{member.created_at}}
+          </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</mat-card>
