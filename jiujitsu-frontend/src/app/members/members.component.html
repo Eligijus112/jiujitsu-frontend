@@ -1,16 +1,33 @@
 <mat-card>
   <mat-accordion multi="true" *ngIf="memberCount > 0">
     <mat-expansion-panel *ngFor="let member of members">
-      <mat-expansion-panel-header>
-        {{member.name}} {{member.surname}}
+      <mat-expansion-panel-header >
+        <div class="belt-box" [ngStyle]="{'background-color': member.rank_name}">
+        </div>
+          {{member.name}} {{member.surname}}
       </mat-expansion-panel-header>
-          <div class=member-info>
+          <div class=member-info >
             <p>
               <span>Member email:</span> {{member.email}}
             </p>
             <p>
               <span>Member since:</span> {{member.created_at}}
+            </p>
+            <p>
+              <span>Belt:</span> {{member.rank_name}}
+            </p>
+            <p>
+              <span>Stripes:</span> {{member.stripe_count}}
+            </p>
           </div>
+          <mat-action-row>
+            <button mat-raised-button *ngIf="member.id == getUserId() || isAdmin()" (click)="onUpdate(member.id)" color="primary">
+              Update user
+            </button>
+            <button mat-raised-button *ngIf="member.id == getUserId() || isAdmin()" (click)="onDelete(member.id)" color="primary">
+              Delete user
+            </button>
+          </mat-action-row>
     </mat-expansion-panel>
   </mat-accordion>
 </mat-card>

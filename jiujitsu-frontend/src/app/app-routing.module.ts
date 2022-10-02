@@ -13,6 +13,9 @@ import { LoginComponent } from './login/login.component';
 // Members component
 import { MembersComponent } from './members/members.component';
 
+// User page
+import { UserComponent } from './user/user.component';
+
 const routes: Routes = [
   // Defining the home route
   { path: '', component: HomeComponent },
@@ -23,6 +26,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   // Defining the members route
   { path: 'members', component: MembersComponent },
+  // Defining the user route
+  { path: 'user', component: UserComponent },
 ];
 
 @NgModule({

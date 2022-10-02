@@ -1,3 +1,6 @@
+.mat-card {
+  text-align: center;
+}
 
 form {
   display: inline-block;
@@ -6,8 +9,4 @@ form {
 .mat-form-field {
     width: 100%;
     display: flex
-}
-
-input[type='file']{
-  visibility: hidden;
 }

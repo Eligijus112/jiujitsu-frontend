@@ -14,6 +14,8 @@
         <li *ngIf="is_auth">
           <a mat-button routerLink="/members">Members</a></li>
         <li *ngIf="is_auth">
+          <a mat-button routerLink="/user">My profile</a></li>
+        <li *ngIf="is_auth">
           <a mat-button (click)="onLogout()">Logout</a>
         </li>
     </ul>

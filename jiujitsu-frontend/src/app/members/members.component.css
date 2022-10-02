@@ -1,3 +1,13 @@
 .member-info span {
   font-weight: bold;
 }
+
+.belt-box {
+  float: left;
+  height: 20px;
+  width: 20px;
+  margin-bottom: 15px;
+  margin-right: 1rem;
+  border: 1px solid black;
+  clear: both;
+}

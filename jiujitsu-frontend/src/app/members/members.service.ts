@@ -13,6 +13,12 @@ import { Subject } from 'rxjs';
 // Importing the router
 import { Router } from '@angular/router';
 
+// Datetime to date conversion
+import { DatePipe } from '@angular/common';
+
+// Importing teh auth service
+import { LoginService } from '../login/login.service';
+
 const BACKEND_URL = environment.apiUrl + '/users';
 
 // Defining the user login service
@@ -22,11 +28,24 @@ export class MembersService {
   private members: any = [];
   private membersUpdated = new Subject<{members: any[], memberCount: number}>();
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private loginService: LoginService
+    ) { }
 
   // Fetching the users from database
   fetchMembers() {
-    this.http.get(BACKEND_URL).subscribe((members: any) => {
+    // Fetching auth data
+    this.loginService.autoAuthUser();
+
+    // Fetching the users
+    this.http.get(BACKEND_URL)
+    .subscribe((members: any) => {
+      // Changing the created_at field to a date
+      members.users.forEach((member: any) => {
+        member.created_at = new DatePipe('en-US').transform(member.created_at, 'yyyy-MM-dd');
+      });
       this.members = members.users;
       this.membersUpdated.next(
         {
@@ -34,7 +53,7 @@ export class MembersService {
           memberCount: this.members.length
         }
       );
-    });
+    })
   }
 
   // Getting the users
@@ -42,8 +61,29 @@ export class MembersService {
     return this.members;
   }
 
+  // Infering whether the current active user is an admin
+  isAdmin() {
+    return this.loginService.getIsAdmin();
+  }
+
   // Fetching the observable
   getMembersUpdateListener() {
     return this.membersUpdated.asObservable();
   }
+
+  // Getting the user id
+  getUserId() {
+    return this.loginService.getUserId();
+  }
+
+  // Deleting the user
+  deleteUser(id: number) {
+    // Deleting the user
+    this.http.delete(BACKEND_URL + '/' + id)
+    .subscribe(() => {
+      // Updating the users
+      this.fetchMembers();
+    })
+  }
+
 }

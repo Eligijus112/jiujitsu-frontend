@@ -1,0 +1,26 @@
+<mat-card>
+  <mat-card-title>
+    My profile
+  </mat-card-title>
+  <form [formGroup]="userInfoForm">
+    <mat-form-field>
+      <input matInput placeholder="First Name" formControlName="name">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Last Name" formControlName="surname">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type='email' placeholder="Email" formControlName="email">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Rank" formControlName="rank_name">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Stripe count" formControlName="stripe_count">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Image" formControlName="image_path">
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="update()">Update</button>
+  </form>
+</mat-card>

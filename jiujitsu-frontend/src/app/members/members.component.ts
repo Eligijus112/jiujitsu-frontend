@@ -4,6 +4,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 // Member service
 import { MembersService } from './members.service';
 
+// Importing the router
+import { Router } from '@angular/router';
+
 // Defining the members component
 @Component({
   selector: 'app-members',
@@ -17,7 +20,7 @@ export class MembersComponent implements OnInit {
   members: any = [];
   memberCount: number = 0;
 
-  constructor(private membersService: MembersService) { }
+  constructor(private membersService: MembersService, private router: Router) { }
 
   // Init method
   ngOnInit() {
@@ -32,4 +35,25 @@ export class MembersComponent implements OnInit {
         this.memberCount = data.memberCount;
       })
   }
+
+  // Deleting the member
+  onDelete(id: number) {
+    this.membersService.deleteUser(id);
+  }
+
+  // Updating the member
+  onUpdate(id: number) {
+    this.router.navigate(['/user']);
+  }
+
+  // Getting the user id
+  getUserId() {
+    return this.membersService.getUserId();
+  }
+
+  // If the user is an admin
+  isAdmin() {
+    return this.membersService.isAdmin();
+  }
+
 }

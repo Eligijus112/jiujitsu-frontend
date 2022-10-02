@@ -5,7 +5,15 @@
   <mat-card-subtitle>
     Please fill out the form below to sign up
   </mat-card-subtitle>
+
   <form [formGroup]="signupForm">
+
+    <button mat-stroked-button type="button" (click)="filePicker.click()"> Upload profile image </button>
+    <input type="file" #filePicker (change) = "onImagePicked($event)">
+    <div class="image-preview" *ngIf="imagePreview !== '' && imagePreview">
+      <img [src]="imagePreview" [alt]="signupForm.value.title" />
+    </div>
+
     <mat-form-field>
       <input matInput placeholder="First Name" formControlName="name">
     </mat-form-field>
@@ -15,6 +23,23 @@
     <mat-form-field>
       <input matInput type='email' placeholder="Email" formControlName="email">
     </mat-form-field>
+    <mat-form-field>
+      <mat-label>Belt color</mat-label>
+      <mat-select formControlName="beltColor">
+        <mat-option *ngFor="let belt of beltColors" [value]="belt">
+          {{belt}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Stripe count</mat-label>
+      <mat-select formControlName="stripeCount">
+        <mat-option *ngFor="let stripe of stripeCounts" [value]="stripe">
+          {{stripe}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
     <mat-form-field>
       <input matInput type='password' placeholder="Password" formControlName="password">
     </mat-form-field>
