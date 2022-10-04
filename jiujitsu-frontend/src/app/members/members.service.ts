@@ -19,7 +19,11 @@ import { DatePipe } from '@angular/common';
 // Importing teh auth service
 import { LoginService } from '../login/login.service';
 
+// URL to get users
 const BACKEND_URL = environment.apiUrl + '/users';
+
+// URL for images
+const IMAGE_URL = environment.imageUrl
 
 // Defining the user login service
 @Injectable({providedIn: "root"})
@@ -45,6 +49,7 @@ export class MembersService {
       // Changing the created_at field to a date
       members.users.forEach((member: any) => {
         member.created_at = new DatePipe('en-US').transform(member.created_at, 'yyyy-MM-dd');
+        member.image_path = IMAGE_URL + '/' + member.image_path;
       });
       this.members = members.users;
       this.membersUpdated.next(
