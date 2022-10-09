@@ -65,7 +65,6 @@ export class SignupService {
     },
     error => {
       if (error.status_code === 409){
-        console.log(error.message);
         Swal.fire({
           icon: 'error',
           title: error.error.message,

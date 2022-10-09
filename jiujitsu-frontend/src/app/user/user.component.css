@@ -1,14 +1,21 @@
-.mat-card {
-  text-align: center;
-}
-
 form {
   display: inline-block;
 }
 
+.mat-card {
+  text-align: center;
+}
+
 .mat-form-field {
     width: 100%;
-    display: flex
+    display: flex;
+    padding: 0.5rem;
+}
+
+img {
+  margin: 1rem;
+  width: 14rem;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.5);
 }
 
 input[type='file']{

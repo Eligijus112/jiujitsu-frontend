@@ -10,6 +10,9 @@ import { HttpClient } from '@angular/common/http';
 // Subject class
 import { Subject } from 'rxjs';
 
+// Modals
+import Swal from 'sweetalert2';
+
 // Defining the backend URL
 const BACKEND_URL = environment.apiUrl + '/users';
 
@@ -68,9 +71,30 @@ export class UserService {
 
   // Update user info
   updateUserInfo(id: number, userInfo: any) {
-    console.log(id);
-    console.log(userInfo);
-    //return this.http.put(BACKEND_URL + '/' + userInfo.user_id, userInfo);
+    // Creating the form group needed for the update
+    const postData = new FormData();
+    postData.append("name", userInfo.name);
+    postData.append("surname", userInfo.surname);
+    postData.append("email", userInfo.email);
+    postData.append("rank_name", userInfo.beltColor);
+    postData.append("stripe_count", userInfo.stripeCount.toString());
+    postData.append("image", userInfo.image);
+    postData.append("image_path", userInfo.image_path);
+
+    // Sending the post request
+    return this.http.put<{status_code: number, message: string}>(
+      BACKEND_URL + '/' + id,
+      postData
+    ).subscribe(response => {
+      if (response.status_code === 200) {
+        Swal.fire({
+          icon: 'success',
+          title: response.message,
+          showConfirmButton: false,
+          timer: 1500
+        })
+      }
+    })
   }
 
 }

@@ -30,7 +30,6 @@ export class MembersComponent implements OnInit {
     // Subscribing to the members
     this.membersService.getMembersUpdateListener()
       .subscribe((data: any) => {
-        console.log(data.members)
         this.members = data.members;
         this.memberCount = data.memberCount;
       })

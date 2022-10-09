@@ -10,6 +10,11 @@ import { UserService } from './user.service';
 // Handling forms
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
+// Extracting the image serving url
+import { environment } from '../../environments/environment';
+
+const IMAGE_URL = environment.imageUrl;
+
 // Creating the user profile component
 @Component({
   selector: 'app-user',
@@ -78,22 +83,24 @@ export class UserComponent implements OnInit {
         'surname': new FormControl(null),
         'email': new FormControl(null),
         'rank_name': new FormControl(null),
-        'stripe_count': new FormControl(null),
-        'image_path': new FormControl(null)
+        'beltColor': new FormControl(null),
+        'stripeCount': new FormControl(null),
+        'image': new FormControl(null),
+        'image_path': new FormControl(null),
       });
 
     // Subscription to user info
     this.userService.getUserInfo()
     .subscribe((userInfo: any) => {
       this.userInfo = userInfo;
-      console.log(this.userInfo)
+      this.imagePreview = IMAGE_URL + '/' + this.userInfo.image_path;
       // Updating the form
       this.userInfoForm.patchValue({
         'name': this.userInfo.name,
         'surname': this.userInfo.surname,
         'email': this.userInfo.email,
-        'rank_name': this.userInfo.rank_name,
-        'stripe_count': this.userInfo.stripe_count,
+        'beltColor': this.userInfo.rank_name,
+        'stripeCount': this.userInfo.stripe_count,
         'image_path': this.userInfo.image_path
       });
     });
@@ -120,7 +127,7 @@ export class UserComponent implements OnInit {
 
   update() {
     // Updating the user profile
-    this.userService.updateUserInfo(this.user_id, this.userInfo);
+    this.userService.updateUserInfo(this.user_id, this.userInfoForm.value);
   }
 
 }
