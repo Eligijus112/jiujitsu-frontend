@@ -33,6 +33,9 @@ import { MatExpansionModule } from "@angular/material/expansion";
 // File upload animations
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+// Custom made calendar component
+import { CalendarComponent } from './calendar/calendar.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,7 +46,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HomeComponent,
     LoginComponent,
     MembersComponent,
-    UserComponent
+    UserComponent,
+    CalendarComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,9 @@
+<mat-card>
+  <mat-accordion multi="true" *ngIf="totalDays() > 0">
+    <mat-expansion-panel *ngFor="let date of getDates()">
+      <mat-expansion-panel-header>
+        {{date}}
+      </mat-expansion-panel-header>
+    </mat-expansion-panel>
+  </mat-accordion>
+</mat-card>

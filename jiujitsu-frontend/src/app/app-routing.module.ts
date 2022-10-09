@@ -16,6 +16,9 @@ import { MembersComponent } from './members/members.component';
 // User page
 import { UserComponent } from './user/user.component';
 
+// Calendar component
+import { CalendarComponent } from './calendar/calendar.component';
+
 const routes: Routes = [
   // Defining the home route
   { path: '', component: HomeComponent },
@@ -28,6 +31,8 @@ const routes: Routes = [
   { path: 'members', component: MembersComponent },
   // Defining the user route
   { path: 'user', component: UserComponent },
+  // Defining the calendar route
+  { path: 'calendar', component: CalendarComponent }
 ];
 
 @NgModule({

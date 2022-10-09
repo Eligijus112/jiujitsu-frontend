@@ -46,6 +46,9 @@
     <mat-form-field>
       <input matInput type='password' placeholder="Confirm Password" formControlName="confirmPassword">
     </mat-form-field>
+    <mat-form-field>
+      <input matInput type='password' placeholder="Admin password" formControlName="adminPassword">
+    </mat-form-field>
     <button  mat-raised-button color="primary" (click)="onSignup()" [disabled]="!formValid">Sign up</button>
   </form>
 </mat-card>

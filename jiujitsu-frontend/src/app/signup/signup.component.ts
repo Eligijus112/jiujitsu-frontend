@@ -81,6 +81,7 @@ export class SignupComponent implements OnInit {
             }),
             'password': new FormControl(null, [Validators.required, Validators.minLength(6)]),
             'confirmPassword': new FormControl(null, [Validators.required, Validators.minLength(6)]),
+            'adminPassword': new FormControl(null, [Validators.required, Validators.minLength(6)]),
         });
 
         this.signupForm.valueChanges.subscribe(() => {
@@ -90,7 +91,6 @@ export class SignupComponent implements OnInit {
 
     // Defining the onSignup method
     onSignup() {
-        console.log(this.signupForm.value);
         // Logging the form values
         this.service.signup(
             this.signupForm.value.name,
@@ -100,7 +100,8 @@ export class SignupComponent implements OnInit {
             this.signupForm.value.confirmPassword,
             this.signupForm.value.beltColor,
             this.signupForm.value.stripeCount,
-            this.signupForm.value.image
+            this.signupForm.value.image,
+            this.signupForm.value.adminPassword
         )
     }
   }

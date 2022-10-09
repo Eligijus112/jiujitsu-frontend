@@ -3,6 +3,9 @@
     My profile
   </mat-card-title>
   <form [formGroup]="userInfoForm">
+    <button mat-stroked-button type="button" (click)="filePicker.click()"> Upload profile image </button>
+    <input type="file" #filePicker (change) = "onImagePicked($event)">
+      <img [src]="userInfoForm.image_path" [alt]="userInfoForm.value.title" />
     <mat-form-field>
       <input matInput placeholder="First Name" formControlName="name">
     </mat-form-field>
@@ -13,13 +16,20 @@
       <input matInput type='email' placeholder="Email" formControlName="email">
     </mat-form-field>
     <mat-form-field>
-      <input matInput placeholder="Rank" formControlName="rank_name">
+      <mat-label>Belt color</mat-label>
+      <mat-select formControlName="beltColor">
+        <mat-option *ngFor="let belt of beltColors" [value]="belt">
+          {{belt}}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
     <mat-form-field>
-      <input matInput placeholder="Stripe count" formControlName="stripe_count">
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput placeholder="Image" formControlName="image_path">
+      <mat-label>Stripe count</mat-label>
+      <mat-select formControlName="stripeCount">
+        <mat-option *ngFor="let stripe of stripeCounts" [value]="stripe">
+          {{stripe}}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
     <button mat-raised-button color="primary" (click)="update()">Update</button>
   </form>

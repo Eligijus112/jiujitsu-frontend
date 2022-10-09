@@ -1,13 +1,17 @@
-
 form {
   display: inline-block;
 }
 
+.mat-card {
+  text-align: center;
+}
+
 .mat-form-field {
     width: 100%;
-    display: flex
+    display: flex;
+    padding: 0.5rem;
 }
 
 input[type='file']{
-  visibility: hidden;
+  display: none;
 }

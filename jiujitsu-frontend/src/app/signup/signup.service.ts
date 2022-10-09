@@ -32,11 +32,9 @@ export class SignupService {
     confirmPassword: string,
     beltColor: string,
     stripeCount: number,
-    image: File
+    image: File,
+    adminPassword: string
     ) {
-
-    // Console logging the form values
-    console.log(name, surname, email, password, confirmPassword, beltColor, stripeCount, image);
 
     // Creating the post data
     const postData = new FormData();
@@ -48,6 +46,7 @@ export class SignupService {
     postData.append("beltColor", beltColor);
     postData.append("stripeCount", stripeCount.toString());
     postData.append("image", image, image.name);
+    postData.append("adminPassword", adminPassword);
 
     // Sending the post request
     return this.http.post<{status_code: number, userId: number, message: string}>(

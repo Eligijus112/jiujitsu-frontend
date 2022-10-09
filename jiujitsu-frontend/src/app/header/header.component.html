@@ -5,16 +5,21 @@
         <li>
           <a mat-button routerLink="/home">Home</a>
         </li>
-        <li *ngIf="!is_auth">
-          <a mat-button routerLink="/signup">Signup</a>
+        <li>
+          <a mat-button routerLink="/calendar">Calendar</a>
+        </li>
+        <li *ngIf="is_auth && is_admin">
+          <a mat-button routerLink="/signup">Signup user</a>
         </li>
         <li *ngIf="!is_auth">
           <a mat-button routerLink="/login">Login</a>
         </li>
         <li *ngIf="is_auth">
-          <a mat-button routerLink="/members">Members</a></li>
+          <a mat-button routerLink="/members">Members</a>
+        </li>
         <li *ngIf="is_auth">
-          <a mat-button routerLink="/user">My profile</a></li>
+          <a mat-button routerLink="/user">My profile</a>
+        </li>
         <li *ngIf="is_auth">
           <a mat-button (click)="onLogout()">Logout</a>
         </li>

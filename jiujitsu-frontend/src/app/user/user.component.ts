@@ -28,6 +28,27 @@ export class UserComponent implements OnInit {
   // User info dictionary
   userInfo: any = {};
 
+  // User image preview
+  imagePreview: string = '';
+
+  // Constant for belt colors
+  beltColors = [
+    'white',
+    'blue',
+    'purple',
+    'brown',
+    'black'
+  ];
+
+  // Stripe counts
+  stripeCounts = [
+    0,
+    1,
+    2,
+    3,
+    4,
+  ]
+
   // Boolean indicating a valid form
   isValidForm() {
     this.formValid = this.userInfoForm.valid;
@@ -80,6 +101,21 @@ export class UserComponent implements OnInit {
     this.userInfoForm.valueChanges.subscribe(() => {
       this.isValidForm();
     });
+  }
+
+  onImagePicked(event: Event) {
+    const file = (event.target as HTMLInputElement).files![0];
+
+    this.userInfoForm.patchValue({image: file});
+    this.userInfoForm.get('image').updateValueAndValidity();
+
+    // Reading the image
+    const reader = new FileReader();
+    // Reading the image
+    reader.onload = () => {
+      this.imagePreview = reader.result as string;
+    }
+    reader.readAsDataURL(file);
   }
 
   update() {
