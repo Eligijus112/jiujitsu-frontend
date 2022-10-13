@@ -2,8 +2,22 @@
   <mat-accordion multi="true" *ngIf="totalDays() > 0">
     <mat-expansion-panel *ngFor="let date of getDates()">
       <mat-expansion-panel-header>
-        {{date}}
+        {{date.date}} {{date.weekday}}
       </mat-expansion-panel-header>
+      <mat-panel-description >
+      </mat-panel-description>
+      <mat-card>
+        <mat-card-content>
+          Morning attendance {{date.morning_count}}
+          <p> </p>
+          Evening attendance {{date.evening_count}}
+        </mat-card-content>
+        <mat-action-row>
+          <button mat-raised-button color="primary" (click)="goingMorning(date.date)">Going on morning</button>
+          <p> </p>
+          <button mat-raised-button color="primary" (click)="goingEvening(date.date)">Going on evening</button>
+        </mat-action-row>
+      </mat-card>
     </mat-expansion-panel>
   </mat-accordion>
 </mat-card>

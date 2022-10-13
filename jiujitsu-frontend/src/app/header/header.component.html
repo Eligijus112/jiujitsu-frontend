@@ -5,7 +5,7 @@
         <li>
           <a mat-button routerLink="/home">Home</a>
         </li>
-        <li>
+        <li *ngIf="is_auth">
           <a mat-button routerLink="/calendar">Calendar</a>
         </li>
         <li *ngIf="is_auth && is_admin">

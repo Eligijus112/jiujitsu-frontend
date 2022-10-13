@@ -1,0 +1,12 @@
+span {
+  font-size: bold;
+}
+
+.mat-action-row {
+  justify-content: flex-start;
+}
+
+.mat-expansion-panel-header {
+  font-size: large;
+  font-weight: 500;
+}
