@@ -1,11 +1,16 @@
+<div class="action-buttons">
+  <button mat-raised-button color="primary" (click)="accordion.openAll()">Expand All</button>
+  <button mat-raised-button color="primary" (click)="accordion.closeAll()">Collapse All</button>
+</div>
 <mat-card>
-  <mat-accordion multi="true" *ngIf="totalDays() > 0">
+  <mat-accordion *ngIf="totalDays() > 0" multi>
     <mat-expansion-panel *ngFor="let date of getDates()">
       <mat-expansion-panel-header>
+        <mat-icon>
+          date_range
+        </mat-icon>
         {{date.date}} {{date.weekday}}
       </mat-expansion-panel-header>
-      <mat-panel-description >
-      </mat-panel-description>
       <mat-card>
         <mat-card-content>
           Morning attendance {{date.morning_count}}
@@ -13,9 +18,9 @@
           Evening attendance {{date.evening_count}}
         </mat-card-content>
         <mat-action-row>
-          <button mat-raised-button color="primary" (click)="goingMorning(date.date)">Going on morning</button>
+          <button [disabled]="isUserGoingMorning(date.date)" mat-raised-button color="primary" (click)="goingMorning(date.date)">Going on morning</button>
           <p> </p>
-          <button mat-raised-button color="primary" (click)="goingEvening(date.date)">Going on evening</button>
+          <button [disabled]="isUserGoingEvening(date.date)" mat-raised-button color="primary" (click)="goingEvening(date.date)">Going on evening</button>
         </mat-action-row>
       </mat-card>
     </mat-expansion-panel>

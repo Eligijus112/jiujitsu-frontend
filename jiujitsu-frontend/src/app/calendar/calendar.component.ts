@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 // Importing the calendar service class
 import CalendarService from './calendar.service';
+
+// Accordion
+import {MatAccordion} from '@angular/material/expansion';
 
 @Component({
   selector: 'calendar',
@@ -9,6 +12,7 @@ import CalendarService from './calendar.service';
   styleUrls: ['./calendar.component.css']
 })
 export class CalendarComponent implements OnInit {
+
   // Getting the current date
   date = new Date();
 
@@ -17,6 +21,12 @@ export class CalendarComponent implements OnInit {
 
   // Placeholder for calendar array
   calendar: any = [];
+
+  // Placeholder for the morning attendance for the current user
+  morning_attendance: any = [];
+
+  // Placeholder for evening attendance for the current user
+  evening_attendance: any = [];
 
   // Saving only the date part
   // (without the time part)
@@ -43,11 +53,20 @@ export class CalendarComponent implements OnInit {
   constructor (private calendarService: CalendarService) {}
 
   ngOnInit() {
+
     this.calendarService.autoAuthUser();
     this.user_id = this.calendarService.getUserId();
 
     // Querying the calendar
     this.calendarService.getCalendar(this.days[0].date, this.days[6].date);
+
+    // Querying the morning goers
+    this.calendarService.getMorningGoers(this.days[0].date, this.days[6].date);
+
+    // Subscribing to morning goers
+    this.calendarService.getMorningGoersObservable().subscribe((data: any) => {
+      this.morning_attendance = data.data;
+    })
 
     // Subscribing to the calendar
     this.calendarService.getCalendarObservable().subscribe((data: any) => {
@@ -60,12 +79,14 @@ export class CalendarComponent implements OnInit {
         // Getting the calendar entry of that date
         const calendar_entry = this.calendar.find((entry: any) => entry.date === date);
         if (calendar_entry) {
-          day.morning_count = calendar_entry.morning_sum;
-          day.evening_count = calendar_entry.evening_sum;
+          day.morning_count = Number(calendar_entry.morning_sum);
+          day.evening_count = Number(calendar_entry.evening_sum);
         }
       })
     });
   }
+
+  @ViewChild(MatAccordion) accordion!: MatAccordion;
 
   totalDays() {
     return this.days.length;
@@ -77,10 +98,50 @@ export class CalendarComponent implements OnInit {
 
   goingMorning(date: string) {
     this.calendarService.goingToClass(date, this.user_id, 'morning');
+
+    // Updating the days array
+    this.days.map(day => {
+      if (day.date === date) {
+        day.morning_count += 1;
+      }
+    })
+
+    // Updating the morning attendance array
+    this.morning_attendance.push({
+      date: date,
+      user_id: this.user_id
+    })
   }
 
   goingEvening(date: string) {
     this.calendarService.goingToClass(date, this.user_id, 'evening');
+
+    // Updating the days array
+    this.days.map(day => {
+      if (day.date === date) {
+        day.evening_count += 1;
+      }
+    })
+
+    // Updating the evening attendance array
+    this.evening_attendance.push({
+      date: date,
+      user_id: this.user_id
+    })
+  }
+
+  isUserGoingMorning(date: string) {
+    const entry = this.morning_attendance.find((entry: any) => {
+      return (entry.date === date) && (entry.user_id.toString() === this.user_id.toString())
+    });
+    return entry ? true : false;
+  }
+
+  isUserGoingEvening(date: string) {
+    const entry = this.evening_attendance.find((entry: any) => {
+      return (entry.date === date) && (entry.user_id.toString() === this.user_id.toString())
+    });
+    return entry ? true : false;
   }
 
 }

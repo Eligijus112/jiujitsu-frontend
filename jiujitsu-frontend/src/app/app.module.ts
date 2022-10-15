@@ -4,6 +4,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+// Icons
+import { MatIconModule } from '@angular/material/icon';
+
 // Form modules
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
@@ -50,6 +53,7 @@ import { CalendarComponent } from './calendar/calendar.component';
     CalendarComponent
   ],
   imports: [
+    MatIconModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,

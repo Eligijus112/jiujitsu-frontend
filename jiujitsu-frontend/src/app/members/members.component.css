@@ -17,3 +17,11 @@ img {
   width: 10rem;
   box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.5);
 }
+
+.action-buttons {
+  padding: 1rem;
+}
+
+button{
+  margin: 0.5rem;
+}

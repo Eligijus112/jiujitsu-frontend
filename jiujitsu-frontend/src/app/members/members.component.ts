@@ -1,11 +1,14 @@
 // Component class
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 // Member service
 import { MembersService } from './members.service';
 
 // Importing the router
 import { Router } from '@angular/router';
+
+// Accordion
+import { MatAccordion } from '@angular/material/expansion';
 
 // Defining the members component
 @Component({
@@ -21,6 +24,8 @@ export class MembersComponent implements OnInit {
   memberCount: number = 0;
 
   constructor(private membersService: MembersService, private router: Router) { }
+
+  @ViewChild(MatAccordion) accordion!: MatAccordion;
 
   // Init method
   ngOnInit() {
@@ -41,7 +46,7 @@ export class MembersComponent implements OnInit {
   }
 
   // Updating the member
-  onUpdate(id: number) {
+  onUpdate() {
     this.router.navigate(['/user']);
   }
 

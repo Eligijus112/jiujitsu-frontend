@@ -10,3 +10,15 @@ span {
   font-size: large;
   font-weight: 500;
 }
+
+.action-buttons {
+  padding: 1rem;
+}
+
+button{
+  margin: 0.5rem;
+}
+
+mat-icon{
+  padding-right: 0.5rem;
+}

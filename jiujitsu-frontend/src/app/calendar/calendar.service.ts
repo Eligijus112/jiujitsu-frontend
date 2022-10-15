@@ -23,6 +23,8 @@ const BACKEND_URL = environment.apiUrl + '/calendar';
 export class CalendarService {
 
   calendar = new Subject<[]>();
+  morningGoers = new Subject<[]>();
+  eveningGoers = new Subject<[]>();
 
   constructor(
     private http: HttpClient,
@@ -58,8 +60,6 @@ export class CalendarService {
     formData.append('user_id', user_id.toString());
     formData.append('part_of_day', part_of_day);
 
-    console.log(BACKEND_URL);
-
     // Sending the post request
     return this.http.post(BACKEND_URL + '/addEntry', formData)
     .subscribe((data: any) => {
@@ -72,6 +72,30 @@ export class CalendarService {
           timer: 3000
         })
       }
+    });
+  }
+
+  getMorningGoersObservable() {
+    return this.morningGoers.asObservable();
+  }
+
+  getMorningGoers(start_date: string, end_date: string){
+    // Sending the get request
+    return this.http.get(BACKEND_URL + '/morning', {'params': {'start': start_date, 'end': end_date}})
+    .subscribe((data: any) => {
+      this.morningGoers.next(data);
+    });
+  }
+
+  getEveningGoersObservable() {
+    return this.eveningGoers.asObservable();
+  }
+
+  getEveningGoers(start_date: string, end_date: string){
+    // Sending the get request
+    return this.http.get(BACKEND_URL + '/evening', {'params': {'start': start_date, 'end': end_date}})
+    .subscribe((data: any) => {
+      this.eveningGoers.next(data);
     });
   }
 
