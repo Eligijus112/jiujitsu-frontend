@@ -22,3 +22,27 @@ button{
 mat-icon{
   padding-right: 0.5rem;
 }
+
+img{
+  max-width: 5rem;
+  padding: 0.5rem;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.5);
+}
+
+mat-list {
+  display: block;
+}
+
+.belt-box {
+  float: left;
+  height: 20px;
+  width: 20px;
+  margin-bottom: 15px;
+  margin-right: 1rem;
+  border: 1px solid black;
+  clear: both;
+}
+
+mat-card-header {
+  padding: 1rem;
+}

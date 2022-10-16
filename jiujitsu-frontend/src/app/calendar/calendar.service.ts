@@ -19,6 +19,9 @@ import Swal from 'sweetalert2';
 // Defining the backend URL
 const BACKEND_URL = environment.apiUrl + '/calendar';
 
+// Defining the path to images
+const IMAGE_URL = environment.imageUrl;
+
 @Injectable({providedIn: "root"})
 export class CalendarService {
 
@@ -51,6 +54,22 @@ export class CalendarService {
     return this.calendar.asObservable();
   }
 
+  toggleAttendance(date: string, user_id: number, part_of_day: string) {
+    // Sending the put request
+    return this.http.put(BACKEND_URL + '/toggleAttendance', {'date': date, 'user_id': user_id, 'part_of_day': part_of_day}).
+    subscribe((data: any) => {
+      if (data.status_code == 201){
+        Swal.fire({
+          icon: 'success',
+          title: 'Success!',
+          text: data.message,
+          showConfirmButton: false,
+          timer: 1000
+        });
+      }
+    });
+  }
+
   goingToClass(date: string, user_id: number, part_of_day: string) {
     // Creating the form data for the post request
     const formData = new FormData();
@@ -69,7 +88,7 @@ export class CalendarService {
           title: 'Success!',
           text: 'Successfully added to the calendar',
           showConfirmButton: false,
-          timer: 3000
+          timer: 1000
         })
       }
     });
@@ -83,6 +102,10 @@ export class CalendarService {
     // Sending the get request
     return this.http.get(BACKEND_URL + '/morning', {'params': {'start': start_date, 'end': end_date}})
     .subscribe((data: any) => {
+      // Updating the image path
+      data.data.forEach((element: any) => {
+        element.image_path = IMAGE_URL + '/' + element.image_path;
+      });
       this.morningGoers.next(data);
     });
   }

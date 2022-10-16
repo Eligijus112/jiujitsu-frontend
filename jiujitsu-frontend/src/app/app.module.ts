@@ -12,6 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
+import { MatListModule } from '@angular/material/list';
 
 // Http module
 import { HttpClientModule } from '@angular/common/http';
@@ -63,6 +64,7 @@ import { CalendarComponent } from './calendar/calendar.component';
     ReactiveFormsModule,
     HttpClientModule,
     MatSelectModule,
+    MatListModule,
     //NgFileValidatorLibModule,
     // Custom imports
     AngularMaterialModule,

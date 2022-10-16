@@ -1,26 +1,93 @@
 <div class="action-buttons">
-  <button mat-raised-button color="primary" (click)="accordion.openAll()">Expand All</button>
-  <button mat-raised-button color="primary" (click)="accordion.closeAll()">Collapse All</button>
+  <button mat-raised-button color="primary" (click)="accordion.openAll()">
+    Expand All
+  </button>
+  <button mat-raised-button color="primary" (click)="accordion.closeAll()">
+    Collapse All
+  </button>
 </div>
 <mat-card>
   <mat-accordion *ngIf="totalDays() > 0" multi>
     <mat-expansion-panel *ngFor="let date of getDates()">
       <mat-expansion-panel-header>
-        <mat-icon>
-          date_range
-        </mat-icon>
-        {{date.date}} {{date.weekday}}
+        <mat-icon> date_range </mat-icon>
+        {{ date.date }} {{ date.weekday }}
       </mat-expansion-panel-header>
       <mat-card>
         <mat-card-content>
-          Morning attendance {{date.morning_count}}
-          <p> </p>
-          Evening attendance {{date.evening_count}}
+          <mat-accordion multi>
+            <mat-card-header
+              >Morning attendance: {{ date.morning_count }}</mat-card-header
+            >
+            <mat-expansion-panel
+              *ngFor="let student of getMorningAttendanceUsers(date.date)"
+            >
+              <mat-expansion-panel-header>
+                <div
+                  class="belt-box"
+                  [ngStyle]="{ 'background-color': student.rank_name }"
+                ></div>
+                {{ student.name }} {{ student.surname }}
+              </mat-expansion-panel-header>
+              <img [src]="student.image_path" />
+            </mat-expansion-panel>
+          </mat-accordion>
+          <mat-accordion multi>
+            <mat-card-header
+              >Evening attendance: {{ date.evening_count }}</mat-card-header
+            >
+            <mat-expansion-panel
+              *ngFor="let student of getEveningAttendanceUsers(date.date)"
+            >
+              <mat-expansion-panel-header>
+                <div
+                  class="belt-box"
+                  [ngStyle]="{ 'background-color': student.rank_name }"
+                ></div>
+                {{ student.name }} {{ student.surname }}
+              </mat-expansion-panel-header>
+              <img [src]="student.image_path" />
+            </mat-expansion-panel>
+          </mat-accordion>
         </mat-card-content>
         <mat-action-row>
-          <button [disabled]="isUserGoingMorning(date.date)" mat-raised-button color="primary" (click)="goingMorning(date.date)">Going on morning</button>
-          <p> </p>
-          <button [disabled]="isUserGoingEvening(date.date)" mat-raised-button color="primary" (click)="goingEvening(date.date)">Going on evening</button>
+          <div *ngIf="!isUserGoingMorning(date.date)">
+            <button
+              mat-raised-button
+              color="primary"
+              (click)="goingMorning(date.date)"
+            >
+              Going on morning
+            </button>
+          </div>
+          <div *ngIf="isUserGoingMorning(date.date)">
+            <button
+              mat-raised-button
+              color="primary"
+              (click)="notGoingMorning(date.date)"
+            >
+              Not going on morning
+            </button>
+          </div>
+          <p></p>
+          <div *ngIf="!isUserGoingEvening(date.date)">
+            <button
+              mat-raised-button
+              color="primary"
+              (click)="goingEvening(date.date)"
+            >
+              Going on evening
+            </button>
+          </div>
+          <div *ngIf="isUserGoingEvening(date.date)">
+            <button
+              mat-raised-button
+              color="primary"
+              (click)="notGoingEvening(date.date)"
+            >
+              Not going on evening
+            </button>
+          </div>
         </mat-action-row>
       </mat-card>
     </mat-expansion-panel>
